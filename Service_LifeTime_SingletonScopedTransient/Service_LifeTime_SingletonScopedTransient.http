@@ -1,0 +1,6 @@
+@Service_LifeTime_SingletonScopedTransient_HostAddress = http://localhost:5154
+
+GET {{Service_LifeTime_SingletonScopedTransient_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
