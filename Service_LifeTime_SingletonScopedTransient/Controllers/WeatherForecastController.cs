@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Service_LifeTime_SingletonScopedTransient.BAL;
+using Service_LifeTime_SingletonScopedTransient.IBAL;
+using Service_LifeTime_SingletonScopedTransient.Models;
 
 namespace Service_LifeTime_SingletonScopedTransient.Controllers
 {
@@ -28,6 +31,18 @@ namespace Service_LifeTime_SingletonScopedTransient.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost("PostIceCreams")]
+        public IActionResult PostIceCreams([FromServices] IIceCreamsBAL _iceCreamsBAL, IceCream iceCream)
+        {
+            bool res = _iceCreamsBAL.PostIceCreams(iceCream);
+            if (res)
+            {
+                List<IceCream> icecreams = _iceCreamsBAL.GetIceCreams();
+                return Ok(icecreams);
+            }
+            return BadRequest("Cannot post the data");
         }
     }
 }
